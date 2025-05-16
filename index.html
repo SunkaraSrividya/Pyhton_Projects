@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Number Guessing Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+     <h1>😀 Welcome To Number Guessing Game</h1>
+    {% if win %}
+        <h2 class="message win">{{ message }}</h2>
+        <a href="/">Play Again</a>
+    {% elif lose %}
+        <h2 class="message lose">{{ message }}</h2>
+        <a href="/">Try Again</a>
+    {% elif session.level is not defined %}
+        <form method="POST">
+            <p>Select difficulty:</p>
+            <button type="submit" name="level" value="Easy">Easy (6 tries)</button>
+            <button type="submit" name="level" value="Hard">Hard (3 tries)</button>
+        </form>
+    {% else %}
+        <p class="message">{{ message }}</p>
+        <p><strong>Attempts left: {{ attempts_left }}</strong></p>
+        <form method="POST">
+            <input type="number" name="guess" required autofocus>
+            <button type="submit">Submit Guess</button>
+        </form>
+    {% endif %}
+</body>
+</html>
